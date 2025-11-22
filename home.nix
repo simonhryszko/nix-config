@@ -109,6 +109,21 @@
     guiAddress = "127.0.0.1:8384";
   };
 
+  # Sway window manager configuration
+  wayland.windowManager.sway = {
+    enable = true;
+    config = {
+      modifier = "Mod4";
+
+      bars = [
+        {
+          position = "top";
+          statusCommand = "while true; do date +'%Y-%m-%d %H:%M'; sleep 60; done";
+        }
+      ];
+    };
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
