@@ -1,25 +1,34 @@
 {
-  description = "A very basic flake";
+  description = "Home Manager configuration of simon";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Specify the source of Home Manager and Nixpkgs.
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs:
+  outputs =
+    { nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
-      pkgs   = inputs.nixpkgs.legacyPackages.${system};
+      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-    nixosConfigurations.nixos = inputs.nixpkgs.lib.nixosSystem{
-      modules = [
-	./configuration.nix
-      ];
-    };
-      # devShells.${system}.default = pkgs.mkShell {
-      #   packages = [
-      #     pkgs.youtube-tui
-      #   ];
-      # };
+      homeConfigurations.simon = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [
+		# ./configuration.nix
+		./home.nix 
+	];
+
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
+      };
     };
 }
