@@ -1,0 +1,1 @@
+- Use man home-configuration.nix for ref
