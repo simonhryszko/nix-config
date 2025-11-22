@@ -96,8 +96,10 @@
   # Git configuration
   programs.git = {
     enable = true;
-    userName = "Simon Hryszko";
-    userEmail = "simonhryszko@gmail.com";
+    settings.user = {
+      name = "Simon Hryszko";
+      email = "simonhryszko@gmail.com";
+    };
   };
 
   # Syncthing service
