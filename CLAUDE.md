@@ -1,1 +1,2 @@
 - Use man home-configuration.nix for ref
+- when updating config first do man home-configuration | grep -A10 -B5 -i <phase>
