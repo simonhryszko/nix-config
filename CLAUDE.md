@@ -1,2 +1,3 @@
 - when updating config first do man home-configuration | grep -A10 -B5 -i <phase>
 - after updating config run home-manager switch
+- use git commit -am '<emoji> <message>' for commiting
