@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -124,6 +124,12 @@
           statusCommand = "while true; do date +'%Y-%m-%d %H:%M'; sleep 60; done";
         }
       ];
+
+      keybindings = let
+        modifier = config.wayland.windowManager.sway.config.modifier;
+      in lib.mkOptionDefault {
+        "${modifier}+q" = "kill";
+      };
     };
   };
 
