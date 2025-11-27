@@ -172,6 +172,13 @@
       modifier = "Mod4";
       terminal = "ghostty";
 
+      # Input configuration for touchpad tap-to-click
+      input = {
+        "type:touchpad" = {
+          tap = "enabled";
+        };
+      };
+
       bars = [
         {
           position = "top";
