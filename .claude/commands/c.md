@@ -1,11 +1,13 @@
 purpose: commit changes
-- use `git commit -am '<emoji> <scope>(optional type): <message>'` for commiting changes
+- use `git commit -m '<emoji> <scope>(optional type): <message>'` for commiting changes
+- or `git add .. && git commit -m '<emoji> <scope>(optional type): <message>'` for commiting changes
   - keep messages very concise - just what changed
-  - use `-a` when possible and prioritize before `git add ..`
-  - if not possible due to new file -> `git add ..`
   - use `git status` to check staging status
   - format: emoji scope: message OR emoji scope(type): message (type optional)
   - examples: 🔧 sway: update workspace config, 📦 packages: install btop and yq
+  - split into multiple commits if needed
+  - result of this command should be commit
+    - does not mean all changes have to be commited by one commit
 
 <emojis>
 🎨 :art: - Improve structure / format of the code.
