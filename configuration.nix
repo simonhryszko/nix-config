@@ -94,7 +94,12 @@
  
   # DE
   # services.displayManager.cosmic-greeter.enable = true;
-  services.displayManager.ly.enable = true;
+  services.displayManager.ly = {
+    enable = true;
+    settings = {
+      animation = "gameoflife";
+    }
+  }
   # services.desktopManager.cosmic.enable = true;
 
   programs.sway.enable = true;
