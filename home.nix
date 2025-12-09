@@ -209,7 +209,7 @@
 	    glog = "git log --oneline --graph --decorate";
 
 	    # System management
-	    rebuild = "home-manager switch --flake ~/.config/nix-config";
+	    rebuild = "sudo nixos-rebuild switch --flake ~/.config/nix-config#nixos";
 	    update = "nix flake update ~/.config/nix-config";
 	    clean = "nix-collect-garbage -d";
 
@@ -345,6 +345,20 @@
 	      command cmatrix -b -u 2
 	    }
 
+	    # Random alias command - picks from actual defined aliases
+	    random_alias() {
+	      local random_alias_cmd=$(alias | shuf | head -1)
+	      local alias_name=$(echo "$random_alias_cmd" | cut -d= -f1)
+	      local alias_def=$(echo "$random_alias_cmd" | cut -d= -f2-)
+
+	      echo "🎲 Random Alias: $alias_name"
+	      echo "📝 Definition: $alias_def"
+	      echo ""
+
+	      # Execute the alias
+	      eval "$alias_name"
+	    }
+
 	    # Print welcome message with useful info
 	    if [[ $- == *i* ]]; then
 	      echo "🎉 Enhanced Zsh Shell Activated!"
@@ -354,7 +368,10 @@
 	      echo "  • tldr - Simplified man pages (try: tldr git)"
 	      echo "  • matrix - Fun terminal animation"
 	      echo "  • weather - Current weather (try: weather)"
-	      echo "  • fuck - Command correction (try: fuck after a typo)"
+	      echo ""
+	      echo "🎲 Fun commands:"
+	      echo "  • random_alias:"
+	      random_alias()
 	      echo ""
 	      echo "💡 Quick tips: gs=git status, rebuild=update config"
 	    fi
