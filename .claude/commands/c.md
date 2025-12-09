@@ -1,6 +1,5 @@
 purpose: commit changes
-- use `git commit -m '<emoji> <scope>(optional type): <message>'` for commiting changes
-- or `git add .. && git commit -m '<emoji> <scope>(optional type): <message>'` for commiting changes
+- ALWAYS use `git add <files> && git commit -m '<emoji> <scope>(optional type): <message>'` for commiting changes
   - keep messages very concise - just what changed
   - use `git status` to check staging status
   - format: emoji scope: message OR emoji scope(type): message (type optional)
