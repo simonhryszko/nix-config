@@ -46,6 +46,13 @@
     pkgs.fzf          # Fuzzy finder
     pkgs.zoxide       # Smart cd replacement
 
+    # Productivity and convenience tools
+    pkgs.tldr         # Simplified man pages
+    pkgs.direnv       # Directory-specific environments
+    pkgs.atuin        # Better shell history
+    pkgs.delta        # Better git diffs
+    pkgs.cmatrix      # Fun matrix animation for terminal
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -223,6 +230,12 @@
 	    grepip = "rg --color=always -n";
 	    rgf = "rg --files | rg";  # Find files containing pattern in name
 
+	    # New tool aliases
+	    man = "tldr";  # Use simplified man pages by default
+	    matrix = "cmatrix -b -u 2";  # Fun matrix animation
+	    weather = "curl wttr.in";  # Weather in terminal
+	    cheat = "cht.sh";  # Cheatsheets in terminal
+
 	    # Quick directory shortcuts
 	    dld = "cd ~/Downloads";
 	    doc = "cd ~/Documents";
@@ -276,11 +289,41 @@
 	    bindkey '^W' backward-kill-word    # Ctrl+W kills previous word
 	    bindkey '^Y' yank                  # Ctrl+Y yanks back
 
-	    # Simple clean prompt
-	    PROMPT='%F{blue}%~%f$ '
+	    # Enhanced information-rich prompt with random theme
+	    setopt PROMPT_SUBST
+
+	    # Enhanced prompt with time, user@host, git branch, and exit status
+	    precmd() {
+	      # Get git branch
+	      local git_branch
+	      git_branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
+
+	      # Get exit status of last command
+	      local exit_status=$?
+	      local status_symbol=""
+	      if [[ $exit_status -ne 0 ]]; then
+	        status_symbol='%F{red}❌'$exit_status'%f '
+	      fi
+
+	      # Build right prompt with git branch and time
+	      local right_prompt=""
+	      if [[ -n "$git_branch" ]]; then
+	        right_prompt+='%F{green}['$git_branch']%f '
+	      fi
+	      right_prompt+='%F{yellow}$(date +%H:%M)%f'
+
+	      RPROMPT="$right_prompt"
+	      PROMPT="$status_symbol%F{blue}%n@%m%f:%F{cyan}%~%f$ "
+	    }
 
 	    # Initialize zoxide for smart directory navigation
 	    eval "$(zoxide init zsh)"
+
+	    # Initialize direnv for directory-specific environments
+	    eval "$(direnv hook zsh)"
+
+	    # Initialize atuin for better shell history
+	    eval "$(atuin init zsh)"
 
 	    # FZF configuration for better fuzzy finding
 	    if command -v fzf >/dev/null 2>&1; then
@@ -295,11 +338,25 @@
 	      export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
 	    fi
 
+	    # Fun functions
+	    matrix() {
+	      echo "🌟 Entering the Matrix... 🌟"
+	      sleep 1
+	      command cmatrix -b -u 2
+	    }
+
 	    # Print welcome message with useful info
 	    if [[ $- == *i* ]]; then
-	      echo "Welcome to Zsh! Current time: $(date '+%H:%M:%S')"
-	      echo "Quick tips: use 'gs' for git status, 'rebuild' to update config"
-	      echo "Enhanced tools: ls->eza, cat->bat, grep->rg, find->fd"
+	      echo "🎉 Enhanced Zsh Shell Activated!"
+	      echo "📅 $(date '+%Y-%m-%d %H:%M:%S')"
+	      echo ""
+	      echo "🚀 New tools available:"
+	      echo "  • tldr - Simplified man pages (try: tldr git)"
+	      echo "  • matrix - Fun terminal animation"
+	      echo "  • weather - Current weather (try: weather)"
+	      echo "  • fuck - Command correction (try: fuck after a typo)"
+	      echo ""
+	      echo "💡 Quick tips: gs=git status, rebuild=update config"
 	    fi
 	  '';
 
@@ -319,6 +376,26 @@
     enable = true;
     tray.enable = true;
     guiAddress = "127.0.0.1:8384";
+  };
+
+  # Direnv service for directory-specific environments
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv = {
+      enable = true;
+    };
+  };
+
+  # Atuin for better shell history
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      auto_sync = true;
+      sync_frequency = "5m";
+      update_check = false;
+    };
   };
 
   # CopyQ clipboard manager
