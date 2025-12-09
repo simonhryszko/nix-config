@@ -15,9 +15,7 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
-  # Add this to allow unfree packages in Home Manager
-  nixpkgs.config.allowUnfree = true;
-
+  
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
@@ -192,6 +190,13 @@
       # Disable default Sway bar (using Waybar instead)
       bars = [ ];
 
+      # Floating window rules
+      floating.criteria = [
+        { app_id = "copyq"; }
+        { class = "CopyQ"; }
+        { title = "CopyQ"; }
+      ];
+
       keybindings = let
         modifier = config.wayland.windowManager.sway.config.modifier;
       in lib.mkOptionDefault {
@@ -296,43 +301,35 @@
 
   # CopyQ configuration file
   xdg.configFile."copyq/copyq.conf".text = ''
-    [General]
-    max_items=2000
-    move_to_front=true
+    maxitems=2000
+    move=true
     check_clipboard=true
-    synchronize_clipboard=true
-
-    [Appearance]
-    theme=dark
-    font_family=monospace
-    font_size=12
-    color_bg=#282828
-    color_fg=#ebdbb2
-    color_alt_bg=#3c3836
-    color_alt_fg=#ebdbb2
-    color_sel_bg=#458588
-    color_sel_fg=#ebdbb2
-    color_find_bg=#3c3836
-    color_find_fg=#ebdbb2
-    color_font=#ebdbb2
-    color_font_selected=#ebdbb2
-    color_editor_bg=#282828
-    color_editor_fg=#ebdbb2
-
-    [Commands]
-    command_1=CopyQ: Copy
-    copyq:copy
-    input=clipboard
-    output=clipboard
-    shortcut=ctrl+c
-    show_in_main_menu=true
-
-    [Options]
-    tray=true
-    hide_main_window=true
-    hide_on_close=true
+    copy_selection=false
     close_on_unfocus=true
-    notifications=false
+    hide_main_window=true
+    hide_tabs=false
+    hide_toolbar=false
+    hide_toolbar_labels=true
+    show_simple_items=false
+    style=Fusion
+    transparency=0
+    transparency_focused=0
+    frameless_window=false
+    always_on_top=false
+    item_popup_interval=0
+    clipboard_notification_lines=0
+    disable_tray=false
+    tray_items=5
+    tray_images=true
+    tray_commands=true
+    native_notifications=false
+    autocompletion=true
+    filter_case_insensitive=true
+    number_search=false
+    text_wrap=true
+    save_on_app_deactivated=true
+    restore_geometry=true
+    open_windows_on_current_screen=true
   '';
 
   # Let Home Manager install and manage itself.
