@@ -301,6 +301,8 @@
 
   # CopyQ configuration file
   xdg.configFile."copyq/copyq.conf".text = ''
+    [Options]
+    # Basic settings
     maxitems=2000
     move=true
     check_clipboard=true
@@ -311,11 +313,26 @@
     hide_toolbar=false
     hide_toolbar_labels=true
     show_simple_items=false
+    confirm_exit=false
+
+    # Window appearance and sizing
     style=Fusion
-    transparency=0
+    transparency=10
     transparency_focused=0
     frameless_window=false
     always_on_top=false
+    window_width=600
+    window_height=400
+    window_geometry=600x400+100+100
+
+    # Dark theme
+    theme=dark
+
+    # Font settings
+    font_family=monospace
+    font_size=11
+
+    # Functionality
     item_popup_interval=0
     clipboard_notification_lines=0
     disable_tray=false
