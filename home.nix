@@ -167,6 +167,13 @@
     guiAddress = "127.0.0.1:8384";
   };
 
+  # CopyQ clipboard manager
+  services.copyq = {
+    enable = true;
+    systemdTarget = "sway-session.target";
+    forceXWayland = false;  # Native Wayland support
+  };
+
   # Sway window manager configuration
   wayland.windowManager.sway = {
     enable = true;
@@ -182,10 +189,14 @@
         };
       };
 
+      # Disable default Sway bar (using Waybar instead)
+      bars = [ ];
+
       keybindings = let
         modifier = config.wayland.windowManager.sway.config.modifier;
       in lib.mkOptionDefault {
         "${modifier}+q" = "kill";
+        "${modifier}+Shift+v" = "exec copyq toggle";
 
         # Custom workspace switcher with back-and-forth functionality
         "${modifier}+1" = "exec sway-workspace-switcher 1";
@@ -282,6 +293,47 @@
       keep-open-pause = true; # Pause instead of stopping at end
     };
   };
+
+  # CopyQ configuration file
+  xdg.configFile."copyq/copyq.conf".text = ''
+    [General]
+    max_items=2000
+    move_to_front=true
+    check_clipboard=true
+    synchronize_clipboard=true
+
+    [Appearance]
+    theme=dark
+    font_family=monospace
+    font_size=12
+    color_bg=#282828
+    color_fg=#ebdbb2
+    color_alt_bg=#3c3836
+    color_alt_fg=#ebdbb2
+    color_sel_bg=#458588
+    color_sel_fg=#ebdbb2
+    color_find_bg=#3c3836
+    color_find_fg=#ebdbb2
+    color_font=#ebdbb2
+    color_font_selected=#ebdbb2
+    color_editor_bg=#282828
+    color_editor_fg=#ebdbb2
+
+    [Commands]
+    command_1=CopyQ: Copy
+    copyq:copy
+    input=clipboard
+    output=clipboard
+    shortcut=ctrl+c
+    show_in_main_menu=true
+
+    [Options]
+    tray=true
+    hide_main_window=true
+    hide_on_close=true
+    close_on_unfocus=true
+    notifications=false
+  '';
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
