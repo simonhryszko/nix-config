@@ -49,8 +49,7 @@
     # Productivity and convenience tools
     pkgs.tldr         # Simplified man pages
     pkgs.direnv       # Directory-specific environments
-    pkgs.atuin        # Better shell history
-    pkgs.delta        # Better git diffs
+      pkgs.delta        # Better git diffs
     pkgs.cmatrix      # Fun matrix animation for terminal
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -322,9 +321,7 @@
 	    # Initialize direnv for directory-specific environments
 	    eval "$(direnv hook zsh)"
 
-	    # Initialize atuin for better shell history
-	    eval "$(atuin init zsh)"
-
+	    	    
 	    # FZF configuration for better fuzzy finding
 	    if command -v fzf >/dev/null 2>&1; then
 	      # Use fd for file path completion if available
@@ -404,17 +401,7 @@
     };
   };
 
-  # Atuin for better shell history
-  programs.atuin = {
-    enable = true;
-    enableZshIntegration = true;
-    settings = {
-      auto_sync = true;
-      sync_frequency = "5m";
-      update_check = false;
-    };
-  };
-
+  
   # CopyQ clipboard manager
   services.copyq = {
     enable = true;
