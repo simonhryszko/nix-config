@@ -38,6 +38,14 @@
     pkgs.pamixer
     pkgs.gh
 
+    # Enhanced command-line tools for better UX
+    pkgs.eza          # Better ls replacement
+    pkgs.bat          # Better cat replacement
+    pkgs.fd           # Better find replacement
+    pkgs.ripgrep      # Better grep replacement
+    pkgs.fzf          # Fuzzy finder
+    pkgs.zoxide       # Smart cd replacement
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -145,9 +153,157 @@
 
 	programs.zsh = {
 	  enable = true;
-	  shellAliases.ll = "ls -la";
-	  initContent = "source ~/.env &>>/tmp/zsh_env.logs";
-	};
+	  enableCompletion = true;
+	  autosuggestion.enable = true;
+	  syntaxHighlighting.enable = true;
+	  historySubstringSearch.enable = true;
+
+	  # Enable auto CD (just type directory name to enter)
+	  autocd = true;
+
+	  # History configuration
+	  history = {
+	    save = 10000;
+	    size = 10000;
+	    ignoreSpace = true;
+	    ignoreDups = true;
+	    share = true;
+	    extended = true;
+	    ignorePatterns = [ "rm *" "pkill *" "kill *" ];
+	  };
+
+	  # Better history navigation with arrow keys
+	  defaultKeymap = "emacs";
+
+	  # Shell aliases for comfort and productivity
+	  shellAliases = {
+	    # Enhanced ls alternatives (using eza for better output)
+	    ls = "eza --git --icons";
+	    ll = "eza -la --git --icons";
+	    la = "eza -a --git --icons";
+	    l = "eza -l --git --icons";
+	    lt = "eza -lat --git --icons";
+	    tree = "eza --tree --git --icons";
+
+	    # Navigation shortcuts
+	    ".." = "cd ..";
+	    "..." = "cd ../..";
+	    "...." = "cd ../../..";
+	    "....." = "cd ../../../..";
+
+	    # Git aliases (enhanced)
+	    gs = "git status";
+	    ga = "git add";
+	    gc = "git commit";
+	    gp = "git push";
+	    gl = "git pull";
+	    gd = "git diff";
+	    gco = "git checkout";
+	    glog = "git log --oneline --graph --decorate";
+
+	    # System management
+	    rebuild = "home-manager switch --flake ~/.config/nix-config";
+	    update = "nix flake update ~/.config/nix-config";
+	    clean = "nix-collect-garbage -d";
+
+	    # Quick access to config files
+	    conf = "cd ~/.config/nix-config";
+	    hm = "home-manager";
+
+	    # Enhanced command defaults with flags
+	    cp = "cp -i";
+	    mv = "mv -i";
+	    rm = "rm -i";
+	    mkdir = "mkdir -p";
+
+	    # Enhanced search tools
+	    grep = "rg";  # Use ripgrep by default
+	    find = "fd";  # Use fd by default
+	    cat = "bat --style=plain -- decorations=always --paging=never";
+	    grepip = "rg --color=always -n";
+	    rgf = "rg --files | rg";  # Find files containing pattern in name
+
+	    # Quick directory shortcuts
+	    dld = "cd ~/Downloads";
+	    doc = "cd ~/Documents";
+	    img = "cd ~/Pictures";
+	    vid = "cd ~/Videos";
+
+	    # Tmux convenience
+	    t = "tmux";
+	    ta = "tmux attach";
+	    tn = "tmux new";
+	    tl = "tmux ls";
+	  };
+
+	  # Named directory hashes for quick navigation
+	  dirHashes = {
+	    nixpkgs = "/nix/var/nix/profiles/per-user/root/channels/nixos";
+	    hm = "${config.home.homeDirectory}/.config/nix-config";
+	    docs = "${config.home.homeDirectory}/Documents";
+	    dld = "${config.home.homeDirectory}/Downloads";
+	  };
+
+	  # Auto-completion paths
+	  cdpath = [
+	    "${config.home.homeDirectory}"
+	    "${config.home.homeDirectory}/Documents"
+	    "${config.home.homeDirectory}/Downloads"
+	    "${config.home.homeDirectory}/.config"
+	  ];
+
+	  # Extra zsh configuration
+	  initContent = ''
+	    # Source environment variables
+	    source ~/.env &>>/tmp/zsh_env.logs
+
+	    # Better completion behavior
+	    setopt AUTO_MENU            # Show completion menu on successive tab presses
+	    setopt COMPLETE_IN_WORD     # Complete from both ends of a word
+	    setopt LIST_PACKED          # Make completion lists more compact
+	    setopt LIST_TYPES           # Show file types in completion lists
+
+	    # Better directory behavior
+	    setopt AUTO_PUSHD           # Push directories onto stack automatically
+	    setopt PUSHD_IGNORE_DUPS    # Don't push duplicate directories
+	    setopt PUSHD_SILENT         # Don't print directory stack after pushd/popd
+
+	    # Useful key bindings for better UX
+	    bindkey '^[[A' history-substring-search-up
+	    bindkey '^[[B' history-substring-search-down
+	    bindkey '^U' backward-kill-line    # Ctrl+U kills to beginning
+	    bindkey '^K' kill-line             # Ctrl+K kills to end
+	    bindkey '^W' backward-kill-word    # Ctrl+W kills previous word
+	    bindkey '^Y' yank                  # Ctrl+Y yanks back
+
+	    # Simple clean prompt
+	    PROMPT='%F{blue}%~%f$ '
+
+	    # Initialize zoxide for smart directory navigation
+	    eval "$(zoxide init zsh)"
+
+	    # FZF configuration for better fuzzy finding
+	    if command -v fzf >/dev/null 2>&1; then
+	      # Use fd for file path completion if available
+	      if command -v fd >/dev/null 2>&1; then
+	        export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+	        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+	        export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+	      fi
+
+	      # Better fzf defaults
+	      export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
+	    fi
+
+	    # Print welcome message with useful info
+	    if [[ $- == *i* ]]; then
+	      echo "Welcome to Zsh! Current time: $(date '+%H:%M:%S')"
+	      echo "Quick tips: use 'gs' for git status, 'rebuild' to update config"
+	      echo "Enhanced tools: ls->eza, cat->bat, grep->rg, find->fd"
+	    fi
+	  '';
+
+	  	};
 
   # Git configuration
   programs.git = {
