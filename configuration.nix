@@ -70,6 +70,7 @@
    wget
    neovim
    vivaldi
+   brightnessctl
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -114,6 +115,19 @@
   };
 
   services.blueman.enable = true;
+
+  # Enable PipeWire audio service
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+    wireplumber.enable = true;
+  };
+
+  # Enable acpid for hardware key events
+  services.acpid.enable = true;
 
  # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

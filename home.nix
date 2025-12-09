@@ -37,6 +37,8 @@
     pkgs.yq-go
     pkgs.ghostty
     pkgs.jq
+    pkgs.pamixer
+    pkgs.gh
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -168,6 +170,7 @@
   # Sway window manager configuration
   wayland.windowManager.sway = {
     enable = true;
+    systemd.enable = true;
     config = {
       modifier = "Mod4";
       terminal = "ghostty";
@@ -179,17 +182,11 @@
         };
       };
 
-      bars = [
-        {
-          position = "top";
-          statusCommand = "while true; do date +'%Y-%m-%d %H:%M'; sleep 60; done";
-        }
-      ];
-
       keybindings = let
         modifier = config.wayland.windowManager.sway.config.modifier;
       in lib.mkOptionDefault {
         "${modifier}+q" = "kill";
+
         # Custom workspace switcher with back-and-forth functionality
         "${modifier}+1" = "exec sway-workspace-switcher 1";
         "${modifier}+2" = "exec sway-workspace-switcher 2";
@@ -201,6 +198,41 @@
         "${modifier}+8" = "exec sway-workspace-switcher 8";
         "${modifier}+9" = "exec sway-workspace-switcher 9";
         "${modifier}+0" = "exec sway-workspace-switcher 10";
+
+        # Move window to workspace and change workspace (mod + shift + workspace_id)
+        "${modifier}+Shift+1" = "move container to workspace 1, exec sway-workspace-switcher 1";
+        "${modifier}+Shift+2" = "move container to workspace 2, exec sway-workspace-switcher 2";
+        "${modifier}+Shift+3" = "move container to workspace 3, exec sway-workspace-switcher 3";
+        "${modifier}+Shift+4" = "move container to workspace 4, exec sway-workspace-switcher 4";
+        "${modifier}+Shift+5" = "move container to workspace 5, exec sway-workspace-switcher 5";
+        "${modifier}+Shift+6" = "move container to workspace 6, exec sway-workspace-switcher 6";
+        "${modifier}+Shift+7" = "move container to workspace 7, exec sway-workspace-switcher 7";
+        "${modifier}+Shift+8" = "move container to workspace 8, exec sway-workspace-switcher 8";
+        "${modifier}+Shift+9" = "move container to workspace 9, exec sway-workspace-switcher 9";
+        "${modifier}+Shift+0" = "move container to workspace 10, exec sway-workspace-switcher 10";
+
+        # Move window to workspace without switching (mod + ctrl + workspace_id)
+        "${modifier}+Ctrl+1" = "move container to workspace 1";
+        "${modifier}+Ctrl+2" = "move container to workspace 2";
+        "${modifier}+Ctrl+3" = "move container to workspace 3";
+        "${modifier}+Ctrl+4" = "move container to workspace 4";
+        "${modifier}+Ctrl+5" = "move container to workspace 5";
+        "${modifier}+Ctrl+6" = "move container to workspace 6";
+        "${modifier}+Ctrl+7" = "move container to workspace 7";
+        "${modifier}+Ctrl+8" = "move container to workspace 8";
+        "${modifier}+Ctrl+9" = "move container to workspace 9";
+        "${modifier}+Ctrl+0" = "move container to workspace 10";
+        # Navigate to previous/next workspace (mod + ctrl + arrow keys)
+        "${modifier}+Ctrl+Left" = "exec swaymsg workspace prev";
+        "${modifier}+Ctrl+Right" = "exec swaymsg workspace next";
+
+        # Multimedia keys for volume and brightness control
+        "XF86AudioRaiseVolume" = "exec pamixer --increase 5";
+        "XF86AudioLowerVolume" = "exec pamixer --decrease 5";
+        "XF86AudioMute" = "exec pamixer --toggle-mute";
+        "XF86AudioMicMute" = "exec pamixer --toggle-mute --default-source";
+        "XF86MonBrightnessUp" = "exec brightnessctl set +5%";
+        "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
       };
     };
   };
@@ -210,6 +242,24 @@
     enable = true;
     settings = {
       theme = "Blue Matrix";
+    };
+  };
+
+  # Waybar status bar configuration
+  programs.waybar = {
+    enable = true;
+    systemd = {
+      enable = true;
+      target = "sway-session.target";
+    };
+    settings = {
+      mainBar = {
+        layer = "top";
+        position = "top";
+        modules-left = [ "sway/workspaces" "sway/mode" ];
+        modules-center = [ "sway/window" ];
+        modules-right = [ "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "clock" "tray" ];
+      };
     };
   };
 
