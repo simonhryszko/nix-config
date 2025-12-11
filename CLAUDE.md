@@ -4,3 +4,4 @@
   - .. grep <phase>
 - never use 'probably' or similar words; either check or don't mention; or just say that you cannot tell for sure so you're not going to make it up
 - so when explaining something check how it is configured and then tell using real filenames / paths / content / variables / etc examples and use cases
+- Simon always runs the `switch` command for rebuilds
