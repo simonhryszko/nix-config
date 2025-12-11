@@ -38,6 +38,10 @@
     pkgs.pamixer
     pkgs.gh
 
+    # Minecraft launcher and backup tool
+    pkgs.atlauncher
+    pkgs.restic
+
     # Enhanced command-line tools for better UX
     pkgs.eza          # Better ls replacement
     pkgs.bat          # Better cat replacement
@@ -113,6 +117,40 @@
       fi
     '')
 
+    (pkgs.writeShellScriptBin "random-alias" ''
+      # Random alias command - picks from hardcoded aliases (display only)
+      aliases=(
+        "ls=eza --git --icons"
+        "ll=eza -la --git --icons"
+        "la=eza -a --git --icons"
+        "tree=eza --tree --git --icons"
+        "gs=git status"
+        "ga=git add"
+        "gc=git commit"
+        "gp=git push"
+        "gl=git pull"
+        "gd=git diff"
+        "gco=git checkout"
+        "rebuild=sudo nixos-rebuild switch --flake ~/.config/nix-config#nixos"
+        "update=nix flake update ~/.config/nix-config"
+        "clean=nix-collect-garbage -d"
+        "conf=cd ~/.config/nix-config"
+        "hm=home-manager"
+        "grep=rg"
+        "find=fd"
+        "cat=bat --style=plain -- decorations=always --paging=never"
+        "man=tldr"
+        "matrix=cmatrix -b -u 2"
+        "weather=curl wttr.in"
+        "cheat=cht.sh"
+      )
+
+      random_alias=''${aliases[$RANDOM % ''${#aliases[@]}]}
+
+      echo "🎲 Random Alias: $random_alias"
+    '')
+
+    
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
@@ -335,44 +373,7 @@
 	      export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
 	    fi
 
-	    # Fun functions
-	    matrix() {
-	      echo "🌟 Entering the Matrix... 🌟"
-	      sleep 1
-	      command cmatrix -b -u 2
-	    }
-
-	    # Random alias command - picks from actual defined aliases
-	    random_alias() {
-	      local random_alias_cmd=$(alias | shuf | head -1)
-	      local alias_name=$(echo "$random_alias_cmd" | cut -d= -f1)
-	      local alias_def=$(echo "$random_alias_cmd" | cut -d= -f2-)
-
-	      echo "🎲 Random Alias: $alias_name"
-	      echo "📝 Definition: $alias_def"
-	      echo ""
-
-	      # Execute the alias
-	      eval "$alias_name"
-	    }
-
-	    # Print welcome message with useful info
-	    if [[ $- == *i* ]]; then
-	      echo "🎉 Enhanced Zsh Shell Activated!"
-	      echo "📅 $(date '+%Y-%m-%d %H:%M:%S')"
-	      echo ""
-	      echo "🚀 New tools available:"
-	      echo "  • tldr - Simplified man pages (try: tldr git)"
-	      echo "  • matrix - Fun terminal animation"
-	      echo "  • weather - Current weather (try: weather)"
-	      echo ""
-	      echo "🎲 Fun commands:"
-	      echo "  • random_alias:"
-	      random_alias()
-	      echo ""
-	      echo "💡 Quick tips: gs=git status, rebuild=update config"
-	    fi
-	  '';
+	    	  '';
 
 	  	};
 
@@ -401,6 +402,7 @@
     };
   };
 
+  
   
   # CopyQ clipboard manager
   services.copyq = {
