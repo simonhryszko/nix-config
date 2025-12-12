@@ -393,6 +393,12 @@
     guiAddress = "127.0.0.1:8384";
   };
 
+  # KDE Connect service
+  services.kdeconnect = {
+    enable = true;
+    indicator = true;
+  };
+
   # Direnv service for directory-specific environments
   programs.direnv = {
     enable = true;
