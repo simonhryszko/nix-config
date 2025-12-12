@@ -111,3 +111,4 @@ suggest more by editing this (.claude/commands/c.md) file :)
 
 
 respond simply but friendly with job state
+- NEVER add AI attribution tags to commits
