@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -71,6 +71,11 @@
    neovim
    vivaldi
    brightnessctl
+
+   # XDG Desktop Portal packages for KDE Connect remote input
+   xdg-desktop-portal
+   kdePackages.xdg-desktop-portal-kde
+   xdg-desktop-portal-wlr
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -81,6 +86,7 @@
   #   enableSSHSupport = true;
   # };
 
+  
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
@@ -91,6 +97,17 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  # KDE Connect firewall configuration
+  # These ports need to be opened for device discovery and communication
+  networking.firewall = {
+    allowedTCPPortRanges = [
+      { from = 1714; to = 1764; }
+    ];
+    allowedUDPPortRanges = [
+      { from = 1714; to = 1764; }
+    ];
+  };
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
  
   # DE
@@ -128,6 +145,22 @@
 
   # Enable acpid for hardware key events
   services.acpid.enable = true;
+
+  # XDG Desktop Portal configuration for KDE Connect remote input
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+    configPackages = [ pkgs.sway ];
+    config = {
+      sway = {
+        default = lib.mkForce "wlr";
+        "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+        "org.freedesktop.impl.portal.Screenshot" = "wlr";
+        "org.freedesktop.impl.portal.RemoteDesktop" = "wlr";
+      };
+    };
+  };
 
  # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
