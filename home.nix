@@ -56,6 +56,12 @@
       pkgs.delta        # Better git diffs
     pkgs.cmatrix      # Fun matrix animation for terminal
 
+    # Audio transcription tools
+    pkgs.whisper-cpp  # Fast C++ implementation of Whisper for audio transcription
+
+    # Video downloading tools
+    pkgs.yt-dlp       # YouTube/media downloader with extensive format support
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
