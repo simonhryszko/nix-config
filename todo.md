@@ -16,3 +16,4 @@
 - [ ] Add mouse scroll resizing for floating windows
 - [ ] Add better floating window rules (blueman, pavucontrol, etc.)
 - [ ] Configure gaps, borders and color scheme
+- [ ] Fix KDE Connect remote control - wlroots lacks RemoteDesktop portal support
