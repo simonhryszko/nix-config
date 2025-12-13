@@ -62,6 +62,9 @@
     # Video downloading tools
     pkgs.yt-dlp       # YouTube/media downloader with extensive format support
 
+    # Audio/video processing tools
+    pkgs.ffmpeg       # Complete solution to record, convert and stream audio and video
+
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -390,6 +393,11 @@
       name = "Simon Hryszko";
       email = "simonhryszko@gmail.com";
     };
+    settings = {
+      pull = {
+        rebase = true;
+      };
+    };
   };
 
   # Syncthing service
@@ -509,6 +517,7 @@
     enable = true;
     settings = {
       theme = "Blue Matrix";
+      copy-on-select = "clipboard";
     };
   };
 
