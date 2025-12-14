@@ -42,6 +42,7 @@
     pkgs.atlauncher
     pkgs.restic
 
+    
     # Enhanced command-line tools for better UX
     pkgs.eza          # Better ls replacement
     pkgs.bat          # Better cat replacement
@@ -202,6 +203,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     SHELL = "${pkgs.zsh}/bin/zsh";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
 	programs.zsh = {
@@ -262,6 +264,7 @@
 	    # Quick access to config files
 	    conf = "cd ~/.config/nix-config";
 	    hm = "home-manager";
+    # atlauncher = "atlauncher --working-dir=$HOME/.config/atlauncher";
 
 	    # Enhanced command defaults with flags
 	    cp = "cp -i";
@@ -454,6 +457,20 @@
         { app_id = "copyq"; }
         { class = "CopyQ"; }
         { title = "CopyQ"; }
+        { class = "com-atlauncher-App"; }
+
+        # Steam floating window rules
+        { class = "Steam"; }
+        { class = "steam"; }
+        { title = "Steam"; }
+        { title = "^Steam$"; }
+        { title = "Friends List"; }
+        { title = "Chat"; }
+        { title = "Steam - News"; }
+        { title = "Steam - Settings"; }
+        { title = "Steam - Big Picture"; }
+        { class = "steam_app_.*"; }
+        { app_id = "steam_app_.*"; }
       ];
 
       keybindings = let
