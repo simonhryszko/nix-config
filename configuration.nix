@@ -125,6 +125,21 @@
   # Enable Zsh system-wide
   programs.zsh.enable = true;
 
+  # Enable graphics support for Steam and other applications
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [ mesa.drivers ];
+    extraPackages32 = with pkgs; [ pkgsi686Linux.mesa.drivers ];
+  };
+
+  # Enable Steam
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
+
   # Enable Bluetooth
   hardware.bluetooth = {
     enable = true;
@@ -145,6 +160,23 @@
 
   # Enable acpid for hardware key events
   services.acpid.enable = true;
+
+  # Configure lid switch to hibernate when laptop is closed
+  services.logind = {
+    lidSwitch = "hibernate";
+    lidSwitchDocked = "ignore";
+    lidSwitchExternalPower = "ignore";
+  };
+
+  # Enable power management services
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
+
+  # Configure suspend and hibernate
+  systemd.sleep.extraConfig = ''
+    HibernateMode=shutdown
+    HibernateDelaySec=2h
+  '';
 
   # XDG Desktop Portal configuration for KDE Connect remote input
   xdg.portal = {
