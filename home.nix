@@ -458,19 +458,6 @@
         { class = "CopyQ"; }
         { title = "CopyQ"; }
         { class = "com-atlauncher-App"; }
-
-        # Steam floating window rules
-        { class = "Steam"; }
-        { class = "steam"; }
-        { title = "Steam"; }
-        { title = "^Steam$"; }
-        { title = "Friends List"; }
-        { title = "Chat"; }
-        { title = "Steam - News"; }
-        { title = "Steam - Settings"; }
-        { title = "Steam - Big Picture"; }
-        { class = "steam_app_.*"; }
-        { app_id = "steam_app_.*"; }
       ];
 
       keybindings = let
