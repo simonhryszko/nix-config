@@ -338,6 +338,14 @@
 	    bindkey '^W' backward-kill-word    # Ctrl+W kills previous word
 	    bindkey '^Y' yank                  # Ctrl+Y yanks back
 
+	    # Ctrl+Arrow keys for word navigation
+	    bindkey '^[[1;5C' forward-word        # Ctrl+Right
+	    bindkey '^[[1;5D' backward-word       # Ctrl+Left
+	    bindkey '^[[5C' forward-word          # Alternative Ctrl+Right
+	    bindkey '^[[5D' backward-word         # Alternative Ctrl+Left
+	    bindkey ';5C' forward-word            # Another variant
+	    bindkey ';5D' backward-word           # Another variant
+
 	    # Enhanced information-rich prompt with random theme
 	    setopt PROMPT_SUBST
 
@@ -464,7 +472,7 @@
         modifier = config.wayland.windowManager.sway.config.modifier;
       in lib.mkOptionDefault {
         "${modifier}+q" = "kill";
-        "${modifier}+Shift+v" = "exec copyq toggle";
+        "${modifier}+Ctrl+v" = "exec copyq toggle";
 
         # Custom workspace switcher with back-and-forth functionality
         "${modifier}+1" = "exec sway-workspace-switcher 1";
