@@ -129,8 +129,8 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [ mesa.drivers ];
-    extraPackages32 = with pkgs; [ pkgsi686Linux.mesa.drivers ];
+    extraPackages = with pkgs; [ mesa ];
+    extraPackages32 = with pkgs; [ pkgsi686Linux.mesa ];
   };
 
   # Enable Steam
@@ -162,10 +162,12 @@
   services.acpid.enable = true;
 
   # Configure lid switch to hibernate when laptop is closed
-  services.logind = {
-    lidSwitch = "hibernate";
-    lidSwitchDocked = "ignore";
-    lidSwitchExternalPower = "ignore";
+  services.logind.settings = {
+    Login = {
+      HandleLidSwitch = "hibernate";
+      HandleLidSwitchDocked = "ignore";
+      HandleLidSwitchExternalPower = "ignore";
+    };
   };
 
   # Enable power management services
