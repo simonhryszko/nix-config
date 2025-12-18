@@ -12,3 +12,12 @@
 - `mod` = Super key
 - `modv`, `modg`, `mode` = Super key + respective letter key
 - `^modv` = Ctrl + Super + V together
+
+## Git Workflow
+When making commits, ask if xyz work, if confirmed use:
+```bash
+git add .. && git commit -m '<message>'
+```
+
+When all changes are committed, suggest push.
+- remove those useless comments, code have to explain itself by itself
