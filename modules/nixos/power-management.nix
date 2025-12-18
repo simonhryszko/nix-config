@@ -20,6 +20,10 @@
     services.power-profiles-daemon.enable = true;
     services.upower.enable = true;
 
+    environment.systemPackages = with pkgs; [
+      brightnessctl
+    ];
+
     systemd.sleep.extraConfig = ''
       HibernateMode=shutdown
       HibernateDelaySec=2h

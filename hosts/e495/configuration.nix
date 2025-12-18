@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../nixosModules
+    ../../modules/nixos/default.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

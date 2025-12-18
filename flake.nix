@@ -18,7 +18,6 @@
       specialArgs = { inherit inputs username; };
       modules = [
         ./hosts/e495/configuration.nix
-        ./nixosModules
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
@@ -27,22 +26,28 @@
           home-manager.users.${username} = {
             imports = [
               ./home.nix
-              ./modules/home-manager
+              ./modules/home-manager/default.nix
             ];
           };
         }
       ];
     };
 
-    homeManagerModules.default = ./modules/home-manager;
-
-    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
-      modules = [
-        ./home.nix
-        ./modules/home-manager
-      ];
+    nixosModules = {
+      sway = import ./modules/nixos/sway.nix;
+      audio = import ./modules/nixos/audio.nix;
+      bluetooth = import ./modules/nixos/bluetooth.nix;
+      steam = import ./modules/nixos/steam.nix;
+      power-management = import ./modules/nixos/power-management.nix;
+      display-manager = import ./modules/nixos/display-manager.nix;
+    };
+    homeManagerModules = {
+      sway = import ./modules/home-manager/sway.nix;
+      common = import ./modules/home-manager/common.nix;
+      development = import ./modules/home-manager/development.nix;
+      desktop = import ./modules/home-manager/desktop.nix;
+      steam = import ./modules/home-manager/steam.nix;
+      minecraft = import ./modules/home-manager/minecraft.nix;
     };
   };
 }

@@ -2,11 +2,11 @@
 
 {
   options = {
-    sway-home.enable =
+    sway.enable =
       lib.mkEnableOption "enables Sway Home Manager configuration";
   };
 
-  config = lib.mkIf config.sway-home.enable {
+  config = lib.mkIf config.sway.enable {
     wayland.windowManager.sway = {
       enable = true;
       systemd.enable = true;
