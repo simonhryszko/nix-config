@@ -89,23 +89,31 @@
         enable = true;
         target = "sway-session.target";
       };
-      settings = {
+      settings = let
+        prefix = name: "${name}: ";
+
+        # Format strings with prefixes
+        netFormat = "${prefix "n"}{ipaddr} ";
+        netOffline = "${prefix "n"}OFFLINE ";
+        cpuFormat = "${prefix "c"}{usage}% ";
+        memFormat = "${prefix "m"}{percentage}% ";
+        tempFormat = "${prefix "t"}{temperatureC}°C ";
+        brightFormat = "${prefix "b"}{percent}% ";
+        batFormat = "${prefix "b"}{capacity}% ";
+        batChargingFormat = "${prefix "b"}{capacity}%+ ";
+      in {
         mainBar = {
           layer = "top";
           position = "top";
           height = 20;
           spacing = 0;
           modules-left = [ "sway/workspaces" "sway/mode" ];
-          modules-center = [ "custom/date" ];
-          modules-right = [ "custom/volume-separator" "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "clock" "tray" ];
-          "custom/volume-separator" = {
-            format = " | ";
-            padding = 0;
-            margin = 0;
-          };
+          modules-center = [ "sway/window" "custom/date" ];
+          modules-right = [ "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "clock" "tray" ];
 
           "custom/date" = {
-            format = "{%A %d}";
+            format = "{}";
+            exec = "date '+%A %d'";
             interval = 3600;
           };
 
@@ -254,10 +262,6 @@
           margin: 0;
           border-left: 1px solid #00ff00;
           text-shadow: 0 0 3px #00ff00;
-        }
-
-        #pulseaudio {
-          border-left: none;
         }
 
         #network {
