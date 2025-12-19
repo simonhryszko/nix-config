@@ -27,6 +27,8 @@
           { class = "CopyQ"; }
           { title = "CopyQ"; }
           { class = "com-atlauncher-App"; }
+          { app_id = "brave-nngceckbapebfimnlniiiahkandclblb-Default"; }
+          # { app_id = ""; }
         ];
 
         keybindings = let
