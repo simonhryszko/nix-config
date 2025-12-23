@@ -100,7 +100,7 @@
 
           "memory" = {
             format = "m: {percentage}%";
-            tooltip-format = "{used:0.1f}GB / {total:0.1f}GB\n{percentage}%\nAvailable: {avail:0.1f}GB";
+            tooltip-format = "{used:0.1f}GB / {total:0.1f}GB\nAvailable: {avail:0.1f}GB";
           };
 
           "temperature" = {
