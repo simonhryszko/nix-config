@@ -70,12 +70,13 @@
           };
 
           "temperature" = {
-            format = "t: {temperatureC}°C";
             critical-threshold = 80;
+            format = "t: {temperatureC}°C";
+            hwmon-path = [ "/sys/class/hwmon/hwmon0/temp1_input" "/sys/class/hwmon/hwmon1/temp1_input" "/sys/class/hwmon/hwmon2/temp1_input" "/sys/class/hwmon/hwmon3/temp1_input" "/sys/class/hwmon/hwmon4/temp1_input" "/sys/class/hwmon/hwmon5/temp1_input" ];
           };
 
           "backlight" = {
-            format = "b: {percent}%";
+            format = "l: {percent}%";
             # format-icons = [ "" "" "" "" "" ];
           };
 
@@ -90,12 +91,12 @@
           };
 
           "clock" = {
-            format = "t: {%H%M}";
+            format = "t: {:%H:%M}";
             interval = 60;
           };
 
           "tray" = {
-            spacing = 1;
+            spacing = 2;
           };
         };
       };
@@ -123,7 +124,6 @@
 
         #workspaces button {
           background: transparent;
-          border: none;
           padding: 2px 8px;
           margin: 2px;
           text-shadow: 0 0 3px #00ff00;
@@ -131,37 +131,45 @@
 
         #workspaces button.active {
           background: transparent;
+          font-weight: bold;
           color: #00ff00;
-          border-bottom: 1px solid #00ff00;
           text-shadow: 0 0 5px #00ff00;
         }
 
         #workspaces button.focused {
           background: transparent;
-          border-bottom: 1px solid #00ff00;
           text-shadow: 0 0 5px #00ff00;
         }
 
         #workspaces button.urgent {
           background: transparent;
-          font-weight: bold;
           text-shadow: 0 0 8px #00ff00;
         }
 
         #window {
           background: transparent;
+          color: #00ff00;
+          text-shadow: 0 0 3px #00ff00;
+          padding: 0 10px;
+        }
+
+        #mode {
+          background: transparent;
+          color: #00ff00;
           text-shadow: 0 0 3px #00ff00;
           padding: 0 10px;
         }
 
         #custom-date {
           background: transparent;
+          color: #00ff00;
           text-shadow: 0 0 3px #00ff00;
           padding: 0 10px;
         }
 
-        #pulseaudio, #network, #cpu, #memory, #temperature, #backlight, #battery, #clock {
+        #pulseaudio, #network, #cpu, #memory, #temperature, #backlight, #battery, #clock, #tray {
           background: transparent;
+          color: #00ff00;
           padding: 0 5px;
           margin: 0;
           border-left: 1px solid #00ff00;
@@ -184,11 +192,6 @@
 
         #clock {
           text-shadow: 0 0 5px #00ff00;
-        }
-
-        #tray {
-          background: transparent;
-          padding: 0 10px 0 0;
         }
 
         @keyframes blink {
