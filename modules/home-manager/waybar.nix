@@ -19,13 +19,31 @@
           height = 20;
           spacing = 0;
           modules-left = [ "sway/workspaces" "sway/mode" ];
-          modules-center = [ "sway/window" "custom/date" ];
-          modules-right = [ "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "clock" "tray" ];
+          modules-center = [ "sway/window" "clock#date" ];
+          modules-right = [ "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "clock#time" "tray" ];
 
-          "custom/date" = {
-            format = "{}";
-            exec = "date '+%A %d'";
+          "clock#date" = {
+            format = "{:%A %d}";
             interval = 3600;
+            tooltip-format = "<tt><small>{calendar}</small></tt>";
+            calendar = {
+              mode = "year";
+              mode-mon-col = 3;
+              weeks-pos = "left";
+              on-scroll = 1;
+              format = {
+                months = "<span color='#0f0'><b>{}</b></span>";
+                days = "<span color='#0f0'>{}</span>";
+                weeks = "<span color='#0c0'><b>W{}</b></span>";
+                weekdays = "<span color='#0c0'><b>{}</b></span>";
+                today = "<span bgcolor='#006600'><span color='#0f0'><b><u>{}</u></b></span></span>";
+              };
+            };
+            actions = {
+              on-click-right = "mode";
+              on-scroll-up = "shift_up";
+              on-scroll-down = "shift_down";
+            };
           };
 
           "sway/workspaces" = {
@@ -90,9 +108,10 @@
             };
           };
 
-          "clock" = {
+          "clock#time" = {
             format = "t: {:%H:%M}";
             interval = 60;
+            tooltip-format = "CET: {:%H:%M}";
           };
 
           "tray" = {
@@ -160,14 +179,7 @@
           padding: 0 10px;
         }
 
-        #custom-date {
-          background: transparent;
-          color: #00ff00;
-          text-shadow: 0 0 3px #00ff00;
-          padding: 0 10px;
-        }
-
-        #pulseaudio, #network, #cpu, #memory, #temperature, #backlight, #battery, #clock, #tray {
+        #pulseaudio, #network, #cpu, #memory, #temperature, #backlight, #battery, #clock.time, #tray {
           background: transparent;
           color: #00ff00;
           padding: 0 5px;
