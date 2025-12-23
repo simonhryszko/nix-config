@@ -74,8 +74,12 @@
             format-muted = "v: MUTED";
             format-icons = {
               headphone = "";
-              default = [ "" ];
+              default = ["false" "true"];
             };
+            tooltip-format = "Volume: {volume}%\nSink: {desc}\nMuted: {icon}";
+            on-click = "pactl set-sink-volume @DEFAULT_SINK@ -10%";
+            on-click-right = "pactl set-sink-volume @DEFAULT_SINK@ +10%";
+            scroll-step = 5;
           };
 
           "network" = {
@@ -96,6 +100,7 @@
 
           "memory" = {
             format = "m: {percentage}%";
+            tooltip-format = "{used:0.1f}GB / {total:0.1f}GB\n{percentage}%\nAvailable: {avail:0.1f}GB";
           };
 
           "temperature" = {
