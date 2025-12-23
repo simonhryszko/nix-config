@@ -9,7 +9,7 @@ in
   };
 
   config = lib.mkIf config.waybar.enable {
-    home.packages = with pkgs; [ bluez playerctl ];
+    home.packages = with pkgs; [ bluez playerctl btop ];
 
     programs.waybar = {
       enable = true;
@@ -102,8 +102,9 @@ in
           };
 
           "cpu" = {
-            format = "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}";
+            format = "c: {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}";
             format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
+            on-click = "${pkgs.ghostty}/bin/ghostty -e ${pkgs.btop}/bin/btop --preset 2 --update 100";
           };
 
           "memory" = {
@@ -131,6 +132,7 @@ in
           "backlight" = {
             format = "l: {percent}%";
             # format-icons = [ "" "" "" "" "" ];
+            on-click-middle = "systemctl hibernate";
           };
 
           "battery" = {

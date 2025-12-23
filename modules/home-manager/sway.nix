@@ -29,6 +29,7 @@
           { class = "com-atlauncher-App"; }
           { app_id = "brave-nngceckbapebfimnlniiiahkandclblb-Default"; }
           { title = "Picture-in-picture"; }
+          { title = "btop"; }
           # { app_id = ""; }
         ];
 
