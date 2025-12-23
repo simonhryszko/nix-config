@@ -28,6 +28,7 @@
           { title = "CopyQ"; }
           { class = "com-atlauncher-App"; }
           { app_id = "brave-nngceckbapebfimnlniiiahkandclblb-Default"; }
+          { title = "Picture-in-picture"; }
           # { app_id = ""; }
         ];
 
