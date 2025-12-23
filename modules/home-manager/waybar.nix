@@ -76,7 +76,7 @@
               headphone = "";
               default = ["false" "true"];
             };
-            tooltip-format = "Volume: {volume}%\nSink: {desc}\nMuted: {icon}";
+            tooltip-format = "Volume: {volume}%\nSink: {desc}";
             on-click = "pactl set-sink-volume @DEFAULT_SINK@ -10%";
             on-click-right = "pactl set-sink-volume @DEFAULT_SINK@ +10%";
             scroll-step = 5;
