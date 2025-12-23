@@ -9,7 +9,7 @@ in
   };
 
   config = lib.mkIf config.waybar.enable {
-    home.packages = with pkgs; [ bluez ];
+    home.packages = with pkgs; [ bluez playerctl ];
 
     programs.waybar = {
       enable = true;
@@ -84,6 +84,7 @@ in
             tooltip-format = "Volume: {volume}%\nSink: {desc}";
             on-click = "${pkgs.bluez}/bin/bluetoothctl connect ${btHeadphonesMac}";
             on-click-right = "${pkgs.bluez}/bin/bluetoothctl disconnect ${btHeadphonesMac}";
+            on-click-middle = "${pkgs.playerctl}/bin/playerctl play-pause";
             scroll-step = 5;
           };
 
@@ -111,7 +112,18 @@ in
           "temperature" = {
             critical-threshold = 80;
             format = "t: {temperatureC}°C";
-            hwmon-path = [ "/sys/class/hwmon/hwmon0/temp1_input" "/sys/class/hwmon/hwmon1/temp1_input" "/sys/class/hwmon/hwmon2/temp1_input" "/sys/class/hwmon/hwmon3/temp1_input" "/sys/class/hwmon/hwmon4/temp1_input" "/sys/class/hwmon/hwmon5/temp1_input" ];
+            hwmon-path = [
+              "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input"
+              "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon3/temp1_input"
+              "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon3/temp2_input"
+              "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon3/temp3_input"
+              "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon3/temp4_input"
+              "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon3/temp5_input"
+              "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon3/temp6_input"
+              "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon3/temp7_input"
+              "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon3/temp8_input"
+              "/sys/devices/pci0000:00/0000:00:08.1/0000:04:00.0/hwmon/hwmon4/temp1_input"
+            ];
           };
 
           "backlight" = {
