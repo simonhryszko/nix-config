@@ -52,9 +52,9 @@
           };
 
           "network" = {
-            format-wifi = "net: {ipaddr} ";
-            format-ethernet = "net: {ipaddr} ";
-            format-disconnected = "net: OFFLINE ";
+            format-wifi = "n: {ipaddr} ";
+            format-ethernet = "n: {ipaddr} ";
+            format-disconnected = "n: OFFLINE ";
             format-icons = {
               wifi = "";
               ethernet = "";
@@ -62,27 +62,27 @@
           };
 
           "cpu" = {
-            format = "cpu: {usage}% ";
+            format = "c: {usage}% ";
           };
 
           "memory" = {
-            format = "mem: {percentage}% ";
+            format = "m: {percentage}% ";
           };
 
           "temperature" = {
-            format = "temp: {temperatureC}°C ";
+            format = "t: {temperatureC}°C ";
             critical-threshold = 80;
           };
 
           "backlight" = {
-            format = "bright: {percent}% ";
-            format-icons = [ "" "" "" "" "" ];
+            format = "b: {percent}% ";
+            # format-icons = [ "" "" "" "" "" ];
           };
 
           "battery" = {
-            format = "bat: {capacity}% ";
-            format-charging = "bat: {capacity}%+ ";
-            format-plugged = "bat: {capacity}% ";
+            format = "b: {capacity}% ";
+            format-charging = "b: {capacity}%+ ";
+            format-plugged = "b: {capacity}% ";
             states = {
               warning = 30;
               critical = 15;
@@ -95,7 +95,7 @@
           };
 
           "tray" = {
-            spacing = 10;
+            spacing = 5;
           };
         };
       };
