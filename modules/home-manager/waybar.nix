@@ -23,7 +23,7 @@
           modules-right = [ "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "clock#time" "tray" ];
 
           "clock#date" = {
-            format = "{:%A %d}";
+            format = "{:%u%d}";
             interval = 3600;
             tooltip-format = "<tt><small>{calendar}</small></tt>";
             calendar = {
@@ -109,9 +109,15 @@
           };
 
           "clock#time" = {
-            format = "t: {:%H:%M}";
+            format = "t: {:%H%M}";
+	    tooltip = false;
             interval = 60;
-            tooltip-format = "CET: {:%H:%M}";
+            timezones = [ "" "Europe/Amsterdam" ];
+            actions = {
+              on-click-right = "mode";
+              on-scroll-up = "tz_up";
+              on-scroll-down = "tz_down";
+            };
           };
 
           "tray" = {
