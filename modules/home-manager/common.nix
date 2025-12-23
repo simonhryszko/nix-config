@@ -72,6 +72,7 @@
       tldr
       direnv
       delta
+      entr
       cmatrix
       (python3.withPackages (ps: with ps; [openai-whisper]))
       yt-dlp
