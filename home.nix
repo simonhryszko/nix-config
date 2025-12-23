@@ -16,6 +16,7 @@
 
   # Enable window manager module
   sway.enable = true;
+  waybar.enable = true;
 
   programs.home-manager.enable = true;
 }
