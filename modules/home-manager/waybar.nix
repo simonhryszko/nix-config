@@ -12,18 +12,7 @@
         enable = true;
         target = "sway-session.target";
       };
-      settings = let
-        prefix = name: "${name}: ";
-
-        netFormat = "${prefix "n"}{ipaddr} ";
-        netOffline = "${prefix "n"}OFFLINE ";
-        cpuFormat = "${prefix "c"}{usage}% ";
-        memFormat = "${prefix "m"}{percentage}% ";
-        tempFormat = "${prefix "t"}{temperatureC}°C ";
-        brightFormat = "${prefix "b"}{percent}% ";
-        batFormat = "${prefix "b"}{capacity}% ";
-        batChargingFormat = "${prefix "b"}{capacity}%+ ";
-      in {
+      settings = {
         mainBar = {
           layer = "top";
           position = "top";
