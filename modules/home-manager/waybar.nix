@@ -1,5 +1,8 @@
 { pkgs, lib, config, ... }:
 
+let
+  btHeadphonesMac = "74:45:CE:E0:CA:A4";
+in
 {
   options = {
     waybar.enable = lib.mkEnableOption "enables Waybar status bar";
@@ -77,8 +80,8 @@
               default = ["false" "true"];
             };
             tooltip-format = "Volume: {volume}%\nSink: {desc}";
-            on-click = "pactl set-sink-volume @DEFAULT_SINK@ -10%";
-            on-click-right = "pactl set-sink-volume @DEFAULT_SINK@ +10%";
+            on-click = "bluetoothctl connect ${btHeadphonesMac}";
+            on-click-right = "bluetoothctl disconnect ${btHeadphonesMac}";
             scroll-step = 5;
           };
 
