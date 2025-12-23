@@ -9,6 +9,8 @@ in
   };
 
   config = lib.mkIf config.waybar.enable {
+    home.packages = with pkgs; [ bluez ];
+
     programs.waybar = {
       enable = true;
       systemd = {
@@ -80,8 +82,8 @@ in
               default = ["false" "true"];
             };
             tooltip-format = "Volume: {volume}%\nSink: {desc}";
-            on-click = "bluetoothctl connect ${btHeadphonesMac}";
-            on-click-right = "bluetoothctl disconnect ${btHeadphonesMac}";
+            on-click = "${pkgs.bluez}/bin/bluetoothctl connect ${btHeadphonesMac}";
+            on-click-right = "${pkgs.bluez}/bin/bluetoothctl disconnect ${btHeadphonesMac}";
             scroll-step = 5;
           };
 
