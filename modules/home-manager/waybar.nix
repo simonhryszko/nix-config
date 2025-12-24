@@ -179,7 +179,7 @@ in
         }
 
         #workspaces {
-          background: #000000;
+          background: transparent;
           margin: 0;
           padding: 0 10px;
         }
@@ -188,24 +188,28 @@ in
           background: transparent;
           padding: 2px 8px;
           margin: 2px;
+          color: #0c0;
+          border-top: 0;
+          text-decoration: none;
           text-shadow: 0 0 3px #00ff00;
+        }
+
+        #workspaces button.focused { /* current */
+          background: transparent;
+          color: #0f0;
+          text-shadow: 0 0 5px #00ff00;
         }
 
         #workspaces button.active {
           background: transparent;
           font-weight: bold;
-          color: #00ff00;
-          text-shadow: 0 0 5px #00ff00;
-        }
-
-        #workspaces button.focused {
-          background: transparent;
           text-shadow: 0 0 5px #00ff00;
         }
 
         #workspaces button.urgent {
           background: transparent;
-          text-shadow: 0 0 8px #00ff00;
+          border-top: 2px solid #c00;
+          text-shadow: 0 0 8px #ff0000;
         }
 
         #window {
@@ -253,6 +257,12 @@ in
 
         #clock {
           text-shadow: 0 0 5px #00ff00;
+        }
+
+        #clock.date {
+          background: transparent;
+          color: #00ff00;
+          text-shadow: 0 0 3px #00ff00;
         }
 
         @keyframes blink {
