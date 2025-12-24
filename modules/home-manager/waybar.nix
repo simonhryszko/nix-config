@@ -25,7 +25,7 @@ in
           spacing = 0;
           fixed-center = false;
           modules-left = [ "sway/workspaces" "sway/mode" ];
-          modules-center = [ "sway/window" "custom/sep" "clock#date" ];
+          modules-center = [ "sway/window" "clock#date" ];
           modules-right = [ "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "clock#time" "tray" ];
 
           "clock#date" = {
@@ -68,10 +68,6 @@ in
               "(.*) - Brave" = "🌎 $1";
               ".*[Oo]bsidian.*" = "📝 Notes";
             };
-          };
-
-          "custom/sep" = {
-            format = " | ";
           };
 
           "pulseaudio" = {
@@ -224,12 +220,6 @@ in
           color: #00ff00;
           text-shadow: 0 0 3px #00ff00;
           padding: 0 10px;
-        }
-
-        #custom-sep {
-          background: transparent;
-          color: #00ff00;
-          padding: 0;
         }
 
         #pulseaudio, #network, #cpu, #memory, #temperature, #backlight, #battery, #clock.time, #tray {
