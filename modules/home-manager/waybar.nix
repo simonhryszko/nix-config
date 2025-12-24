@@ -55,7 +55,7 @@ in
           "sway/workspaces" = {
             format = "{name}";
             format-icons = {
-              urgent = "";
+              urgent = "u";
               active = "";
               default = "";
             };

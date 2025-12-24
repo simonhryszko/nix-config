@@ -14,9 +14,17 @@
         modifier = "Mod4";
         terminal = "ghostty";
 
+        gaps = {
+          inner = 2;
+          outer = 0;
+        };
+
+        window.border = 1;
+
         input = {
           "type:touchpad" = {
             tap = "enabled";
+            dwt = "enabled";
           };
         };
 
@@ -81,11 +89,24 @@
           "XF86AudioMicMute" = "exec pamixer --toggle-mute --default-source";
           "XF86MonBrightnessUp" = "exec brightnessctl set +5%";
           "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
+
+          "${modifier}+Ctrl+Alt+space" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+
+          "${modifier}+Shift+minus" = "move scratchpad";
+          "${modifier}+minus" = "scratchpad show";
+
+          "Alt+Shift+s" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.swappy}/bin/swappy -f -";
         };
       };
     };
 
     home.packages = with pkgs; [
+      autotiling
+      grim
+      slurp
+      swappy
       (pkgs.writeShellScriptBin "sway-workspace-switcher" ''
         SWAY_WORKSTATION_HISTORY=''${SWAY_WORKSTATION_HISTORY:-/tmp/sway_workstation_history}
         WORKSTATION_ID=$1
