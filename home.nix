@@ -9,6 +9,7 @@
   common.enable = true;
   development.enable = true;
   desktop.enable = true;
+  ghostty.enable = true;
 
   # Enable gaming modules
   steam.enable = true;

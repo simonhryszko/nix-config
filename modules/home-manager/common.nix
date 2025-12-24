@@ -27,14 +27,6 @@
       };
     };
 
-    programs.ghostty = {
-      enable = true;
-      settings = {
-        theme = "Blue Matrix";
-        copy-on-select = "clipboard";
-      };
-    };
-
     programs.mpv = {
       enable = true;
       config = {
