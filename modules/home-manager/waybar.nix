@@ -81,8 +81,8 @@ in
             on-click = "${pkgs.bluez}/bin/bluetoothctl connect ${btHeadphonesMac}";
             on-click-right = "${pkgs.bluez}/bin/bluetoothctl disconnect ${btHeadphonesMac}";
             on-click-middle = "${pkgs.playerctl}/bin/playerctl play-pause";
-            on-scroll-up = "${pkgs.playerctl}/bin/playerctl position 5+";
-            on-scroll-down = "${pkgs.playerctl}/bin/playerctl position 5-";
+            on-scroll-up = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
+            on-scroll-down = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
           };
 
           "network" = {
