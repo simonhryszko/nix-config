@@ -10,7 +10,12 @@
     services.displayManager.ly = {
       enable = true;
       settings = {
-        animation = "gameoflife";
+        animate = true;
+        animation = "cmatrix";
+        hide_borders = true;
+        clock = "%H%M";
+        bigclock = true;
+        hide_f1_commands = true;
       };
     };
   };
