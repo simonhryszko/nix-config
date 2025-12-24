@@ -86,11 +86,12 @@ in
           };
 
           "network" = {
+	    interval = 1;
             format-wifi = "n: {ipaddr}/{cidr}";
             format-ethernet = "n: {ipaddr}/{cidr}";
             format-disconnected = "n: OFFLINE";
-            tooltip-format-wifi = "{essid}\nSignal: {signalStrength}%\nFreq: {frequency}GHz\nIP: {ipaddr}\nGateway: {gwaddr}";
-            tooltip-format-ethernet = "{ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}";
+            tooltip-format-wifi = "{essid}\nUp: {bandwidthUpBytes}\nDown: {bandwidthDownBytes}\nSignal: {signalStrength}%\nFreq: {frequency}GHz\nIP: {ipaddr}\nGateway: {gwaddr}";
+            tooltip-format-ethernet = "{ifname}\nUp: {bandwidthUpBytes}\nDown: {bandwidthDownBytes}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}";
             format-icons = {
               wifi = "";
               ethernet = "";
