@@ -21,3 +21,4 @@ git add .. && git commit -m '<message>'
 
 When all changes are committed, suggest push.
 - remove those useless comments, code have to explain itself by itself
+- never use websearch
