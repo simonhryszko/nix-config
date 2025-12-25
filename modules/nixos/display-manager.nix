@@ -11,11 +11,10 @@
       enable = true;
       settings = {
         animate = true;
-        animation = "cmatrix";
+        animation = 1;
         hide_borders = true;
-        clock = "%H%M";
+        hide_key_hints = true;
         bigclock = true;
-        hide_f1_commands = true;
       };
     };
   };
