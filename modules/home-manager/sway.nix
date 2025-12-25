@@ -38,6 +38,18 @@
           { app_id = "brave-nngceckbapebfimnlniiiahkandclblb-Default"; }
           { title = "Picture-in-picture"; }
           { title = "btop"; }
+          { app_id = "pavucontrol"; }
+          { window_role = "pop-up"; }
+          { window_role = "bubble"; }
+          { window_role = "task_dialog"; }
+          { window_role = "Preferences"; }
+          { window_type = "dialog"; }
+          { window_type = "menu"; }
+          { window_role = "About"; }
+          { title = "File Operation Progress"; }
+          { title = "waybar_htop"; }
+          { title = "waybar_nmtui"; }
+          { title = "Save File"; }
           # { app_id = ""; }
         ];
 
@@ -82,6 +94,10 @@
 
           "${modifier}+Ctrl+Left" = "exec swaymsg workspace prev";
           "${modifier}+Ctrl+Right" = "exec swaymsg workspace next";
+          "${modifier}+Ctrl+h" = "exec swaymsg workspace prev";
+          "${modifier}+Ctrl+l" = "exec swaymsg workspace next";
+
+          "${modifier}+l" = "exec ${pkgs.swaylock}/bin/swaylock -c $(printf \"%06x\" $(shuf -i 0-16777215 -n 1))";
 
           "XF86AudioRaiseVolume" = "exec pamixer --increase 5";
           "XF86AudioLowerVolume" = "exec pamixer --decrease 5";
@@ -98,7 +114,13 @@
           "${modifier}+minus" = "scratchpad show";
 
           "Alt+Shift+s" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.swappy}/bin/swappy -f -";
+          "Alt+Ctrl+Shift+s" = "exec power-menu";
         };
+
+        startup = [
+          { command = "autotiling"; }
+          { command = "mako"; }
+        ];
       };
     };
 
@@ -107,6 +129,11 @@
       grim
       slurp
       swappy
+      mako
+      swaylock
+      (pkgs.writeShellScriptBin "power-menu" ''
+        echo -e 'Lock\nSuspend\nHibernate\nRestart\nShutdown' | ${pkgs.fuzzel}/bin/fuzzel --dmenu -p 'Power:' | ${pkgs.bash}/bin/bash -c 'case $(cat) in Lock) ${pkgs.swaylock}/bin/swaylock -c $(printf "%06x" $(shuf -i 0-16777215 -n 1)) ;; Suspend) ${pkgs.systemd}/bin/systemctl suspend ;; Hibernate) ${pkgs.systemd}/bin/systemctl hibernate ;; Restart) ${pkgs.systemd}/bin/systemctl reboot ;; Shutdown) ${pkgs.systemd}/bin/systemctl poweroff ;; esac'
+      '')
       (pkgs.writeShellScriptBin "sway-workspace-switcher" ''
         SWAY_WORKSTATION_HISTORY=''${SWAY_WORKSTATION_HISTORY:-/tmp/sway_workstation_history}
         WORKSTATION_ID=$1
