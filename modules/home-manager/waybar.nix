@@ -29,7 +29,7 @@ in
           modules-right = [ "pulseaudio" "network" "cpu" "memory" "temperature" "backlight" "battery" "clock#time" "tray" ];
 
           "clock#date" = {
-            format = "{:%u%d}";
+            format = "{:%e %a}";
             interval = 3600;
             tooltip-format = "<tt><small>{calendar}</small></tt>";
             calendar = {
@@ -86,7 +86,7 @@ in
           };
 
           "network" = {
-	    interval = 1;
+            interval = 1;
             format-wifi = "n: {ipaddr}/{cidr}";
             format-ethernet = "n: {ipaddr}/{cidr}";
             format-disconnected = "n: OFFLINE";
@@ -100,6 +100,7 @@ in
 
           "cpu" = {
             format = "c: {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}";
+            interval = 1;
             format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
             on-click = "${pkgs.ghostty}/bin/ghostty -e ${pkgs.btop}/bin/btop --preset 2 --update 100";
           };
@@ -111,6 +112,7 @@ in
 
           "temperature" = {
             critical-threshold = 80;
+            interval = 1;
             format = "t: {temperatureC}°C";
             hwmon-path = [
               "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input"
