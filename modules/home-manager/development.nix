@@ -54,12 +54,8 @@
         mv = "mv -i";
         rm = "rm -i";
         mkdir = "mkdir -p";
-        grep = "rg";
-        find = "fd";
-        cat = "bat --style=plain -- decorations=always --paging=never";
         grepip = "rg --color=always -n";
         rgf = "rg --files | rg";
-        man = "tldr";
         matrix = "cmatrix -b -u 2";
         weather = "curl wttr.in";
         cheat = "cht.sh";
