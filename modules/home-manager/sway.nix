@@ -134,6 +134,9 @@
       (pkgs.writeShellScriptBin "power-menu" ''
         echo -e 'Lock\nSuspend\nHibernate\nRestart\nShutdown' | ${pkgs.fuzzel}/bin/fuzzel --dmenu -p 'Power:' | ${pkgs.bash}/bin/bash -c 'case $(cat) in Lock) ${pkgs.swaylock}/bin/swaylock -c $(printf "%06x" $(shuf -i 0-16777215 -n 1)) ;; Suspend) ${pkgs.systemd}/bin/systemctl suspend ;; Hibernate) ${pkgs.systemd}/bin/systemctl hibernate ;; Restart) ${pkgs.systemd}/bin/systemctl reboot ;; Shutdown) ${pkgs.systemd}/bin/systemctl poweroff ;; esac'
       '')
+      (pkgs.writeShellScriptBin "shut" ''
+        pkill brave; shutdown "$@"
+      '')
       (pkgs.writeShellScriptBin "sway-workspace-switcher" ''
         SWAY_WORKSTATION_HISTORY=''${SWAY_WORKSTATION_HISTORY:-/tmp/sway_workstation_history}
         WORKSTATION_ID=$1
