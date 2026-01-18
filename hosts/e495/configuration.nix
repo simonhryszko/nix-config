@@ -72,5 +72,9 @@
   power-management.enable = true;
   display-manager.enable = true;
 
+  # Immich
+  services.immich.enable = false;
+  services.immich.mediaLocation = "/var/lib/immich";
+
   system.stateVersion = "25.05";
 }
