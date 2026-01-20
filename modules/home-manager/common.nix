@@ -69,6 +69,8 @@
       (python3.withPackages (ps: with ps; [openai-whisper]))
       yt-dlp
       ffmpeg
+      nodejs
+      ansible
 
       (writeShellScriptBin "hmManOptions" ''
         man home-configuration.nix | grep -iE "programs.*$1" | grep -vE "<home| {8}" | tr -d ' '

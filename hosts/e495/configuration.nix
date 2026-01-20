@@ -53,6 +53,7 @@
   ];
 
   programs.zsh.enable = true;
+  programs.obs-studio.enable = true;
 
   networking.firewall = {
     allowedTCPPortRanges = [

@@ -44,6 +44,7 @@
         gl = "git pull";
         gd = "git diff";
         gco = "git checkout";
+	gcl = "git clone";
         glog = "git log --oneline --graph --decorate";
         rebuild = "sudo nixos-rebuild switch --flake ~/.config/nix-config#e495";
         update = "nix flake update ~/.config/nix-config";
@@ -108,6 +109,8 @@
         bindkey ';5D' backward-word
 
         setopt PROMPT_SUBST
+
+	[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
         precmd() {
           local git_branch
