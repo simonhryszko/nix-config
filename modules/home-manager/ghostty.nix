@@ -9,7 +9,7 @@
     programs.ghostty = {
       enable = true;
       settings = {
-        theme = "Matrix";
+        theme = "Blue Matrix";
         background-opacity = 0.95;
         background-blur-radius = 25;
         font-size = 12;
