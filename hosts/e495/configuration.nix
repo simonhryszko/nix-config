@@ -31,6 +31,11 @@
     LC_TIME = "en_CA.UTF-8";
   };
 
+  virtualisation.docker.enable = true;
+  virtualisation.docker.enableOnBoot = true;
+
+  services.tailscale.enable = true;
+
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -46,10 +51,15 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "olm-3.2.16"
+  ];
+
   environment.systemPackages = with pkgs; [
     wget
     neovim
     vivaldi
+    matrix-commander
   ];
 
   programs.zsh.enable = true;
@@ -69,6 +79,9 @@
   sway.enable = true;
   audio.enable = true;
   bluetooth.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.enableAllFirmware = true;
+
   steam.enable = true;
   power-management.enable = true;
   display-manager.enable = true;

@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, inputs, ... }:
 
 {
   options = {
@@ -25,6 +25,11 @@
       nix-direnv = {
         enable = true;
       };
+    };
+
+    programs.fzf = {
+      enable = true;
+      enableZshIntegration = true;
     };
 
     programs.mpv = {

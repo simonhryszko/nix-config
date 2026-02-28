@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, inputs, ... }:
 
 {
   options = {
@@ -6,6 +6,10 @@
   };
 
   config = lib.mkIf config.development.enable {
+    home.packages = with pkgs; [
+      inputs.flox.packages.${pkgs.system}.default
+    ];
+
     programs.zsh = {
       enable = true;
       enableCompletion = true;

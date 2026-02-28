@@ -7,9 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flox.url = "github:flox/flox";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs: let
+  outputs = { nixpkgs, home-manager, flox, ... }@inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
     username = "simon";
