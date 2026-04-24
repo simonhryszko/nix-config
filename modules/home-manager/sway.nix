@@ -57,6 +57,7 @@
         in lib.mkOptionDefault {
           "${modifier}+q" = "kill";
           "${modifier}+Ctrl+v" = "exec copyq toggle";
+          "${modifier}+Shift+v" = "exec ghostty -e sh -c 'nix-shell -p portaudio wl-clipboard libnotify \\\"python3.withPackages(ps: with ps; [ openai-whisper sounddevice numpy scipy ])\\\" --run \\\"python /home/simon/Scrits/voice2clip.py --model small --lang pl --notify --enter\\\"'";
 
           "${modifier}+1" = "exec sway-workspace-switcher 1";
           "${modifier}+2" = "exec sway-workspace-switcher 2";
