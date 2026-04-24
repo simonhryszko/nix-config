@@ -16,6 +16,9 @@
       xdg-desktop-portal
       kdePackages.xdg-desktop-portal-kde
       xdg-desktop-portal-wlr
+      # Screen locker
+      swaylock
+      swayidle
     ];
 
     # XDG Desktop Portal configuration for KDE Connect remote input

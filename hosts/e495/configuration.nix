@@ -60,6 +60,7 @@
     neovim
     vivaldi
     matrix-commander
+    python3Packages.edge-tts
   ];
 
   programs.zsh.enable = true;

@@ -76,6 +76,8 @@
       ffmpeg
       nodejs
       ansible
+      uv
+      cron
 
       (writeShellScriptBin "hmManOptions" ''
         man home-configuration.nix | grep -iE "programs.*$1" | grep -vE "<home| {8}" | tr -d ' '
