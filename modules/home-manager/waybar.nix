@@ -55,7 +55,7 @@ in
           "sway/workspaces" = {
             format = "{name}";
             format-icons = {
-              urgent = "u";
+              urgent = "!";
               active = "";
               default = "";
             };
@@ -146,7 +146,7 @@ in
 
           "clock#time" = {
             format = "t: {:%H%M}";
-	    tooltip = false;
+            tooltip = false;
             interval = 60;
             timezones = [ "" "Europe/Amsterdam" ];
             actions = {
@@ -187,26 +187,32 @@ in
           background: transparent;
           padding: 2px 8px;
           margin: 2px;
-          color: #0c0;
+          color: #00ff00;
           border-top: 0;
           text-decoration: none;
-          text-shadow: 0 0 3px #00ff00;
+          text-shadow: none;
+          min-width: 18px;
         }
 
-        #workspaces button.focused { /* current */
-          background: transparent;
-          color: #0f0;
-          text-shadow: 0 0 5px #00ff00;
-        }
-
+        /* active workspace: inverted — green bg, black text, impossible to miss */
+        #workspaces button.focused,
         #workspaces button.active {
-          background: transparent;
+          background: #00ff00;
+          color: #000000;
           font-weight: bold;
-          text-shadow: 0 0 5px #00ff00;
+          text-shadow: none;
+          box-shadow: 0 0 6px #00ff00;
+        }
+
+        /* workspace has at least one window open but is not focused */
+        #workspaces button.visible {
+          color: #00cc00;
+          text-shadow: 0 0 3px #00ff00;
         }
 
         #workspaces button.urgent {
           background: transparent;
+          color: #ff3333;
           border-top: 2px solid #c00;
           text-shadow: 0 0 8px #ff0000;
         }
@@ -237,7 +243,6 @@ in
         #temperature.critical {
           background: #ff0000;
         }
-
 
         #battery.warning:not(.charging) {
           background: #ffaa00;
